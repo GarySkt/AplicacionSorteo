@@ -18,3 +18,8 @@ export const menuStack = (titulo) => {
         headerBackTitle: "Atrás"
     }
 }
+
+export const EstadoObjeto = {    
+    Nuevo: 0,
+    Modificado: 1
+}

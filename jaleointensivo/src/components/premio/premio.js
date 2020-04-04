@@ -4,28 +4,33 @@ import { Container, Fab, Icon, Text } from "native-base"
 import { createStackNavigator } from "react-navigation-stack"
 import { menu, menuStack } from "../../utils"
 import ListaPremio from "./listapremio"
-import { FormularioPremio } from "./formulariopremio"
+import FormularioPremioContainer from "./formulariopremio"
 import servicioPremio from "../../services/serviciosPremio/serviciosPremio"
 import * as actions from "../../actions/premio"
 import { connect } from "react-redux"
 
 function Index(props){
-  const didRun = useRef(false)
-  useEffect(()=>{
-    if(!didRun.current){
-      servicioPremio.obtenerPremios()
+  
+  const ObtenerPremios = () =>{
+    servicioPremio.obtenerPremios()
         .then(premios => {
           props.listarPremios(premios)
         })
-    }
+  }
+  useEffect(()=>{
+    ObtenerPremios()
+    props.navigation.addListener('didFocus',()=>{
+      ObtenerPremios()
+    })
   }, [])
     return(
         <Container>
-            <ListaPremio/>
+            <ListaPremio {... props.navigation}/>
             <Fab
               position="bottomRight"
               style={{ backgroundColor: "#5067FF" }}
               onPress={() => {
+                  props.setearPremioVacio()
                   return props.navigation.navigate("FormularioPremio")
                 }}>
               <Icon name="add" />
@@ -34,19 +39,14 @@ function Index(props){
     )
 }
 
-function mapStateToProps(state){
-  return{
-    premio: state.premio
-  }
-}
-
 function mapDispatchToProps(dispatch){
   return{
-    listarPremios: (premios) => { dispatch(actions.ListarPremioAction(premios)) }
+    listarPremios: (premios) => { dispatch(actions.ListarPremioAction(premios)) },
+    setearPremioVacio: () => { dispatch(actions.SetearPremioVacio()) }
   }
 }
 
-const PremioContainer = connect(mapStateToProps, mapDispatchToProps)(Index);
+const PremioContainer = connect(null, mapDispatchToProps)(Index);
 
 export const PremioStackNavigator = createStackNavigator({
     Premios:{
@@ -54,7 +54,7 @@ export const PremioStackNavigator = createStackNavigator({
       navigationOptions: ({navigation}) =>  menu(navigation, "Premios")
     },
     FormularioPremio:{
-      screen: FormularioPremio,
+      screen: FormularioPremioContainer,
       navigationOptions: menuStack("Formulario")
     }
   })

@@ -13,6 +13,12 @@ function ItemListaPremio(props){
       })
     })
   }
+  const ObtenerPremio=(id) => {
+    servicioPremio.obtenerPremio(id).then(premio=>{
+      props.setearPremio(premio)
+      props.navigate("FormularioPremio")
+    })
+  }
     return(
         <Card style={styles.card}>
             <CardItem>
@@ -20,6 +26,7 @@ function ItemListaPremio(props){
                     <Body>
                         <Text>{props.nombre}</Text>
                         <Text>{props.descripcion}</Text>
+                        <Text>{props.cantidad_maxima}</Text>
                     </Body>
                 </Left>
             </CardItem>
@@ -28,7 +35,7 @@ function ItemListaPremio(props){
                 <Button transparent style={styles.tamanioButtonsCard} onPress={() => EliminarPremio(props.id)}>
                   <Icon active name="remove-circle" style={{color: 'red'}}/>
                 </Button>
-                <Button transparent style={styles.tamanioButtonsCard} onPress={() => alert("editar")}>
+                <Button transparent style={styles.tamanioButtonsCard} onPress={() => ObtenerPremio(props.id)}>
                   <Icon active name="build" style={{color: 'orange'}}/>
                 </Button>
               </Right>
@@ -40,7 +47,8 @@ function ItemListaPremio(props){
 
 function mapDispatchToProps(dispatch){
   return{
-    listarPremios: (premios) => { dispatch(actions.ListarPremioAction(premios)) }
+    listarPremios: (premios) => { dispatch(actions.ListarPremioAction(premios)) },
+    setearPremio: (premio) => { dispatch(actions.SetearPremio(premio))}
   }
 }
 export default connect(null,mapDispatchToProps)(ItemListaPremio);

@@ -15,9 +15,16 @@ export default class servicioPremio{
             body:null
         }).then(respuesta => respuesta);
     }
-    static async modificarPremio(premio){
+    static async guardarPremio(premio){
         return execRequest({
             url:'premio',
+            metodo: 'POST',
+            body: premio
+        }).then(respuesta => respuesta);
+    }
+    static async modificarPremio(premio){
+        return execRequest({
+            url:'premio/'+premio.id,
             metodo: 'PUT',
             body: premio
         }).then(respuesta => respuesta);

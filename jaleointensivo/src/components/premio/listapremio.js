@@ -10,7 +10,7 @@ function ListaPremio(props){
                 {
                     props.premio.premios.map(premio => {
                         return(
-                            <ItemListaPremio  key={ premio.id } { ...premio } />
+                            <ItemListaPremio  key={ premio.id } { ...premio } {... props}/>
                         )
                     })
                 }

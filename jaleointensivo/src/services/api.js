@@ -12,14 +12,19 @@ export async function execRequest(parametroObjeto){
             'Content-Type':'application/json'
         }
     })
-    .then(respuesta => respuesta.data.data)
+    .then(respuesta => ProcesarDatos(respuesta.data))
     .catch(error => {
         if(error.response === undefined) alert("No se encuentra el servicio.")
         else if(error.response.status === 401) GenerarToken().then(response => execRequest(parametroObjeto))
         else alert(error.message)
     })
 }
-
+function ProcesarDatos(datos){
+    if(!datos.data){
+        return datos
+    }
+    return datos.data
+}
 export async function GenerarToken(){
     await axios.post(API + "login?usu_codigo=admin&password=admin", null, {
         headers: {
