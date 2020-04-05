@@ -1,18 +1,20 @@
-import React from "react"
+import React,{useEffect} from "react"
 import { Container, Fab, Icon } from "native-base"
 
 import { createStackNavigator } from "react-navigation-stack"
 import { menu, menuStack } from "../../utils"
 import { ListaPuntoParticipacion } from "./listapuntoparticipacion"
 import { FormularioPuntoParticipacion } from "./formulariopuntoparticipacion"
-import servicioPuntoParticipacion from "../../services/serviciosPuntoParticipacion"
+import servicioPuntoParticipacion from "../../services/serviciosPuntoParticipacion/serviciosPuntoParticipacion"
+import * as actions from "../../actions/puntoParticipacion"
+import { connect } from "react-redux"
 
 function Index(props){
 
     const ObtenerPuntosParticipacion =()=>{
         servicioPuntoParticipacion.obtenerPuntosParticion()
-            .then(puntoParticipacionRespuesta => {
-                props.listarPuntosParticipacion(puntoParticipacionRespuesta)
+            .then(puntosParticipacion => {
+                props.listarPuntosParticipacion(puntosParticipacion)
             })
     }
     useEffect(() => {
@@ -38,7 +40,7 @@ function Index(props){
 }
 function mapDispatchToProps(dispatch){
     return{
-        listarPuntosParticipacion: (puntosParticion)=>{dispatch(actions.ListarPuntosParticipacion(puntosParticion))},
+        listarPuntosParticipacion: (puntosParticipacion)=>{dispatch(actions.ListarPuntosParticipacion(puntosParticipacion))},
         setearPuntoParticipacionVacio:()=>{dispatch(actions.SetearPuntoParticipacionVacio())}
     }
 }

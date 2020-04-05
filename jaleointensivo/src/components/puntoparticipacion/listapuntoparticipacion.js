@@ -1,15 +1,15 @@
 import React from "react"
 import { Container, Content } from "native-base"
-import {ItemListaPuntoParticipacion} from "./itemlistapuntoparticipacion"
-
+import ItemListaPuntoParticipacion from "./itemlistapuntoparticipacion"
+import { connect } from "react-redux"
 export function ListaPuntoParticipacion(props){
     return (
         <Container>
             <Content>
                 {
-                    puntosparticipacion.map(puntosparticipacion=>{
+                    props.puntoParticipacion.puntosParticipacion.map(puntoParticipacion=>{
                         return(
-                            <ItemListaPuntoParticipacion key={puntosparticipacion.id}{...puntosparticipacion}{... props}/>
+                            <ItemListaPuntoParticipacion key={puntoParticipacion.id}{...puntoParticipacion}{... props}/>
                         )
                     })
                 }

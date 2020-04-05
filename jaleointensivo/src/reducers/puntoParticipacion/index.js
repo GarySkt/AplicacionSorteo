@@ -2,7 +2,7 @@ import {LISTAR_PUNTOPARTICIPACION, SET_PROPIEDAD_PUNTOPARTICIPACION, SET_PUNTOPA
 import { EstadoObjeto } from "../../utils"
 
 const PUNTOPARTICIPACION_DEFAULT ={
-    puntoParticipacion: [],
+    puntosParticipacion: [],
     puntoParticipacion:{
         nombre: "",
         ubicacion: "",
@@ -14,10 +14,25 @@ export function PuntoParticipacionReducer(state = PUNTOPARTICIPACION_DEFAULT, ac
     switch(action.type){
         case LISTAR_PUNTOPARTICIPACION:
             return {
+                ...state, puntosParticipacion: action.payload                
+            }
+        case SET_PROPIEDAD_PUNTOPARTICIPACION:
+            const puntoParticipacionModificado = {
                 ...state.puntoParticipacion,
                 [action.nombrePropiedad]: action.valorPropiedad
             }
-        case SET_PROPIEDAD_PUNTOPARTICIPACION:
-            const puntoParticipacion = {}
+            return{
+                ...state, puntosParticipacion: puntoParticipacionModificado
+            }
+        case SET_PUNTOPARTICIPACION:
+            return {
+                ...state, puntoParticipacion: action.payload
+            }
+        case SET_PUNTOPARTICIPACION_VACIO:
+            return {
+                ...state, puntoParticipacion: PUNTOPARTICIPACION_DEFAULT.puntoParticipacion
+            }
+        default:
+            return state;
     }
 }

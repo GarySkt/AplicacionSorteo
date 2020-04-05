@@ -3,10 +3,10 @@ export const SET_PROPIEDAD_PUNTOPARTICIPACION="SET_PROPIEDAD_PUNTOPARTICIPACION"
 export const SET_PUNTOPARTICIPACION = "SET_PUNTOPARTICIPACION"
 export const SET_PUNTOPARTICIPACION_VACIO = "SET_PUNTOPARTICIPACION_VACIO"
 
-export const ListarPuntoParticipacionAction = (puntoParticipacion) => {
+export const ListarPuntoParticipacionAction = (puntosParticipacion) => {
     return{
         type: LISTAR_PUNTOPARTICIPACION,
-        payload: puntoParticipacion
+        payload: puntosParticipacion
     }
 }
 
