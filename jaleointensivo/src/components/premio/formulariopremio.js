@@ -6,7 +6,7 @@ import { EstadoObjeto } from "../../utils"
 import servicioPremio from "../../services/serviciosPremio/serviciosPremio"
 
 function FormularioPremio(props){
-    const guardarPremio = ()=> {
+    const GuardarPremio = ()=> {
         if(props.premio.premio.estado_objeto == EstadoObjeto.Nuevo){
             servicioPremio.guardarPremio(props.premio.premio).then(respuesta => {
                 props.navigation.navigate("Premios")
@@ -40,7 +40,7 @@ function FormularioPremio(props){
                     />
                 </Item>
                 <Text/>
-                <Button onPress={()=> guardarPremio()} style={{ alignSelf:"center"}}>
+                <Button onPress={()=> GuardarPremio()} style={{ alignSelf:"center"}}>
                     <Text>Guardar</Text>
                 </Button>
             </Form>
