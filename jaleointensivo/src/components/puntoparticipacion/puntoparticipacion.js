@@ -3,14 +3,13 @@ import { Container, Fab, Icon } from "native-base"
 
 import { createStackNavigator } from "react-navigation-stack"
 import { menu, menuStack } from "../../utils"
-import { ListaPuntoParticipacion } from "./listapuntoparticipacion"
-import { FormularioPuntoParticipacion } from "./formulariopuntoparticipacion"
+import ListaPuntoParticipacion from "./listapuntoparticipacion"
+import FormularioPuntoParticipacionContainer from "./formulariopuntoparticipacion"
 import servicioPuntoParticipacion from "../../services/serviciosPuntoParticipacion/serviciosPuntoParticipacion"
 import * as actions from "../../actions/puntoParticipacion"
 import { connect } from "react-redux"
 
 function Index(props){
-
     const ObtenerPuntosParticipacion =()=>{
         servicioPuntoParticipacion.obtenerPuntosParticion()
             .then(puntosParticipacion => {
@@ -30,6 +29,7 @@ function Index(props){
                 position = "bottomRight"
                 style={{backgroundColor: "#5067FF"}}
                 onPress={()=>{
+                    props.setearPuntoParticipacionVacio()
                     return props.navigation.navigate("FormularioPuntoParticipacion")
                 }}
             >
@@ -40,7 +40,7 @@ function Index(props){
 }
 function mapDispatchToProps(dispatch){
     return{
-        listarPuntosParticipacion: (puntosParticipacion)=>{dispatch(actions.ListarPuntosParticipacion(puntosParticipacion))},
+        listarPuntosParticipacion: (puntosParticipacion)=>{dispatch(actions.ListarPuntoParticipacionAction(puntosParticipacion))},
         setearPuntoParticipacionVacio:()=>{dispatch(actions.SetearPuntoParticipacionVacio())}
     }
 }
@@ -51,9 +51,9 @@ export const PuntoParticipacionStackNavigator = createStackNavigator({
       screen: (navigation)=><PuntoParticipacionContainer {...navigation}/>,
       navigationOptions: ({navigation}) =>  menu(navigation, "Puntos de Participación")
     },
-    FormularioPuntoParticipacion:{
-        screen: FormularioPuntoParticipacion,
-        navigationOptions: menuStack("Formulario")
-    }  
+     FormularioPuntoParticipacion:{
+         screen: FormularioPuntoParticipacionContainer,
+         navigationOptions: menuStack("Formulario")
+     }  
   })
   

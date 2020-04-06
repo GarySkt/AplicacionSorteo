@@ -8,7 +8,7 @@ import servicioPuntoParticipacion from "../../services/serviciosPuntoParticipaci
 function ItemListaPuntoParticipacion(props){
     const EliminarPuntoParticipacion = (id) => {
         servicioPuntoParticipacion.eliminarPuntoParticipacion(id).then(response => {
-            servicioPuntoParticipacion.obtenerPuntoParticipacion().then(puntosParticipacion => {
+            servicioPuntoParticipacion.obtenerPuntosParticion().then(puntosParticipacion => {
                 props.listarPuntosParticipacion(puntosParticipacion);
             })
         })
@@ -24,8 +24,8 @@ function ItemListaPuntoParticipacion(props){
             <CardItem>
                 <Left>
                     <Body>
-                        <Text>{puntosparticipacion.nombre}</Text>
-                        <Text>{puntosparticipacion.ubicacion}</Text>
+                        <Text>{props.nombre}</Text>
+                        <Text>{props.ubicacion}</Text>
                     </Body>
                 </Left>
             </CardItem>
@@ -45,7 +45,7 @@ function ItemListaPuntoParticipacion(props){
 
 function mapDispatchToProps(dispatch){
     return{
-        listarPuntosParticipacion: (puntosParticipacion) => {dispatch(actions.ListarPuntoParticipacionAction(puntosparticipacion))},
+        listarPuntosParticipacion: (puntosParticipacion) => {dispatch(actions.ListarPuntoParticipacionAction(puntosParticipacion))},
         setearPuntoParticipacion: (puntoParticipacion) => { dispatch(actions.SetearPuntoParticipacion(puntoParticipacion))}
     }
 }

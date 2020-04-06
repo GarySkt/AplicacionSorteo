@@ -5,15 +5,15 @@ import * as actions from "../../actions/puntoParticipacion"
 import { EstadoObjeto } from "../../utils"
 import servicioPuntoParticipacion from "../../services/serviciosPuntoParticipacion/serviciosPuntoParticipacion"
 
-export function FormularioPuntoParticipacion(props) {
+function FormularioPuntoParticipacion(props) {
     const GuardarPuntoParticipacion = ()=>{
         if(props.puntoParticipacion.puntoParticipacion.estado_objeto == EstadoObjeto.Nuevo){
             servicioPuntoParticipacion.guardarPuntoParticipacion(props.puntoParticipacion.puntoParticipacion).then(respuesta => {
-                props.navigation.navigate("Punto de Participacion")
+                props.navigation.navigate("Puntos de Participación")
             })
         }else{
             servicioPuntoParticipacion.modificarPuntoParticipacion(props.puntoParticipacion.puntoParticipacion).then(respuesta => {
-                props.navigation.navigate("Punto de Participacion")
+                props.navigation.navigate("Puntos de Participación")
             })
         }
     }

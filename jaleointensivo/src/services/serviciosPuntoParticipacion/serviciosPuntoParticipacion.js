@@ -18,7 +18,7 @@ export default class servicioPuntoParticipacion{
     static async guardarPuntoParticipacion(puntoParticipacion){
         return execRequest({
             url:'punto-participacion',
-            metodo:'PUT',
+            metodo:'POST',
             body: puntoParticipacion
         }).then(respuesta => respuesta);
     }
@@ -27,7 +27,7 @@ export default class servicioPuntoParticipacion{
             url:'punto-participacion/'+puntoParticipacion.id,
             metodo:'PUT',
             body: puntoParticipacion
-        }).then(respueta => respuesta);
+        }).then(respuesta => respuesta);
     }
     static async eliminarPuntoParticipacion(id){
         return execRequest({

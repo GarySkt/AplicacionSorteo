@@ -22,7 +22,7 @@ export function PuntoParticipacionReducer(state = PUNTOPARTICIPACION_DEFAULT, ac
                 [action.nombrePropiedad]: action.valorPropiedad
             }
             return{
-                ...state, puntosParticipacion: puntoParticipacionModificado
+                ...state, puntoParticipacion: puntoParticipacionModificado
             }
         case SET_PUNTOPARTICIPACION:
             return {
