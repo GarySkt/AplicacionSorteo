@@ -1,4 +1,4 @@
-import React,{useEffect} from "react"
+import React,{useEffect, useState} from "react"
 import { Container, Fab, Icon } from "native-base"
 
 import { createStackNavigator } from "react-navigation-stack"
@@ -8,11 +8,19 @@ import FormularioPuntoParticipacionContainer from "./formulariopuntoparticipacio
 import servicioPuntoParticipacion from "../../services/serviciosPuntoParticipacion/serviciosPuntoParticipacion"
 import * as actions from "../../actions/puntoParticipacion"
 import { connect } from "react-redux"
+import { ScrollView } from "react-native-gesture-handler"
+import { RefreshControl } from "react-native"
 
 function Index(props){
+    const [refrescar, setRefrescar] = useState(false)
+    const RefrescarLista = () => {
+        setRefrescar(true)
+        ObtenerPuntosParticipacion()
+    }
     const ObtenerPuntosParticipacion =()=>{
         servicioPuntoParticipacion.obtenerPuntosParticion()
             .then(puntosParticipacion => {
+                setRefrescar(false)
                 props.listarPuntosParticipacion(puntosParticipacion)
             })
     }
@@ -24,7 +32,11 @@ function Index(props){
     }, [])
     return(
         <Container>
-            <ListaPuntoParticipacion {... props.navigation}/>
+            <ScrollView refreshControl={
+                <RefreshControl refreshing={refrescar} onRefresh={()=> RefrescarLista()}/>
+            }>
+                <ListaPuntoParticipacion {... props.navigation}/>    
+            </ScrollView>
             <Fab 
                 position = "bottomRight"
                 style={{backgroundColor: "#5067FF"}}
